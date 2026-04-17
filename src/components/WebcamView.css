@@ -1,0 +1,163 @@
+.webcam-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #000;
+  border-radius: 16px;
+  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--border-light);
+}
+
+/* Camera toggle bar sits below video but inside container */
+.cam-toggle-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  display: flex;
+  justify-content: center;
+  padding: 0.75rem;
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
+}
+
+.cam-off-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  padding: 0.45rem 1.2rem;
+  border-radius: 50px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: all 0.2s;
+}
+.cam-off-btn:hover {
+  background: rgba(239, 68, 68, 0.3);
+  border-color: #f87171;
+}
+
+.cam-on-btn {
+  background: rgba(34, 197, 94, 0.15);
+  color: #4ade80;
+  border-color: rgba(34, 197, 94, 0.35);
+}
+.cam-on-btn:hover {
+  background: rgba(34, 197, 94, 0.3);
+  border-color: #4ade80;
+}
+
+.webcam-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scaleX(-1); /* mirror effect */
+  display: block;
+}
+
+/* ---- Status Overlays ---- */
+.webcam-status-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  background: rgba(10, 10, 12, 0.9);
+  backdrop-filter: blur(8px);
+}
+
+.status-msg {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+.status-msg.error {
+  color: #f87171;
+}
+
+.error-icon {
+  color: #f87171;
+  opacity: 0.8;
+}
+
+.retry-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(0, 240, 255, 0.1);
+  color: var(--accent-blue);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  padding: 0.5rem 1.2rem;
+  border-radius: 8px;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.retry-btn:hover {
+  background: rgba(0, 240, 255, 0.2);
+  border-color: var(--accent-blue);
+}
+
+/* ---- Ready Badge ---- */
+.cam-ready-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 15;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(10, 10, 12, 0.7);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  color: #4ade80;
+  padding: 0.3rem 0.8rem;
+  border-radius: 2rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  backdrop-filter: blur(6px);
+  animation: fadeIn 0.5s ease;
+}
+
+.ready-dot {
+  width: 7px;
+  height: 7px;
+  background: #4ade80;
+  border-radius: 50%;
+  box-shadow: 0 0 6px #4ade80;
+  animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+  0% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.6); }
+  70% { box-shadow: 0 0 0 6px rgba(74, 222, 128, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); }
+}
+
+/* ---- Corner Markers ---- */
+.webcam-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+}
+
+.corner {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border: 2px solid var(--accent-blue);
+  opacity: 0.6;
+}
+.top-left    { top: 18px; left: 18px; border-right: none; border-bottom: none; border-radius: 2px 0 0 0; }
+.top-right   { top: 18px; right: 18px; border-left: none; border-bottom: none; border-radius: 0 2px 0 0; }
+.bottom-left { bottom: 18px; left: 18px; border-right: none; border-top: none; border-radius: 0 0 0 2px; }
+.bottom-right{ bottom: 18px; right: 18px; border-left: none; border-top: none; border-radius: 0 0 2px 0; }

@@ -1,0 +1,42 @@
+.sb-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  border-radius: 100px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  border: 1px solid transparent;
+  text-decoration: none;
+}
+
+.sb-button.primary {
+  background: #fff;
+  color: #000;
+}
+
+.sb-button.secondary {
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.sb-button.secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.sb-button.glow {
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+  color: #000;
+  box-shadow: 0 10px 30px rgba(0, 240, 255, 0.3);
+}
+
+.sb-button.glow:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 40px rgba(0, 240, 255, 0.5);
+}
+
+.sb-button:active {
+  transform: scale(0.98);
+}

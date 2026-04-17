@@ -1,0 +1,264 @@
+.action-overlay-container {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 50;
+  overflow: hidden;
+  pointer-events: none;
+  border-radius: 16px;
+}
+
+/* Base Shadow Utilities we can use across components */
+.text-red-500 { color: #ef4444; }
+.text-blue-400 { color: #60a5fa; }
+.text-green-400 { color: #4ade80; }
+.text-teal-300 { color: #5eead4; }
+
+.drop-shadow-red { filter: drop-shadow(0 0 20px rgba(239, 68, 68, 0.8)); }
+.drop-shadow-blue { filter: drop-shadow(0 0 20px rgba(96, 165, 250, 0.8)); }
+.drop-shadow-green { filter: drop-shadow(0 0 25px rgba(74, 222, 128, 0.9)); }
+.drop-shadow-teal { filter: drop-shadow(0 0 15px rgba(94, 234, 212, 0.7)); }
+.drop-shadow-cyan { filter: drop-shadow(0 0 25px rgba(34, 211, 238, 1)); }
+
+.text-shadow-red { text-shadow: 0 0 15px rgba(239, 68, 68, 0.8); }
+.text-shadow-blue { text-shadow: 0 0 15px rgba(96, 165, 250, 0.8); }
+.text-shadow-green { text-shadow: 0 0 20px rgba(74, 222, 128, 0.9); }
+
+/* Animations Utilities */
+.animate-scale-up {
+  animation: scaleUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes scaleUp {
+  0% { transform: scale(0.5); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.animate-slide-down {
+  animation: slideDown 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes slideDown {
+  0% { transform: translateY(-100%); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+/* STOP: Red Alert Card */
+.overlay-alert-card {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border: 12px solid rgba(239, 68, 68, 0.8);
+  background: radial-gradient(circle, transparent 60%, rgba(239, 68, 68, 0.2) 100%);
+  animation: flash-border-red 1.5s infinite;
+}
+
+@keyframes flash-border-red {
+  0% { border-color: rgba(239, 68, 68, 0.4); background: transparent; }
+  50% { border-color: rgba(239, 68, 68, 1); background: radial-gradient(circle, transparent 50%, rgba(239, 68, 68, 0.3) 100%); }
+  100% { border-color: rgba(239, 68, 68, 0.4); background: transparent; }
+}
+
+/* HELP: Emergency Banner */
+.overlay-emergency-banner {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  background: rgba(40, 0, 0, 0.9);
+  border-bottom: 2px solid #ff3333;
+  box-shadow: 0 10px 30px rgba(255, 51, 51, 0.3);
+  overflow: hidden;
+  z-index: 20;
+}
+
+.stripes {
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 6px;
+  background: repeating-linear-gradient(
+    45deg,
+    #ff3333,
+    #ff3333 20px,
+    #ffb700 20px,
+    #ffb700 40px
+  );
+}
+
+.banner-content { margin-top: 6px; }
+
+/* WATER: Blue Assistance Card */
+.overlay-water-card {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border: 8px solid rgba(96, 165, 250, 0.6);
+  background: radial-gradient(circle, transparent 50%, rgba(96, 165, 250, 0.15) 100%);
+  animation: pulse-border-blue 2s infinite;
+}
+
+@keyframes pulse-border-blue {
+  0% { border-color: rgba(96, 165, 250, 0.3); }
+  50% { border-color: rgba(96, 165, 250, 0.8); background: radial-gradient(circle, transparent 40%, rgba(96, 165, 250, 0.25) 100%); }
+  100% { border-color: rgba(96, 165, 250, 0.3); }
+}
+
+/* THANK YOU: Green Success Card */
+.overlay-success-card {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border: 10px solid rgba(74, 222, 128, 0.7);
+  background: radial-gradient(circle, transparent 60%, rgba(74, 222, 128, 0.2) 100%);
+}
+
+/* PAIN: Orange Alert Card */
+.overlay-pain-card {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border: 10px solid rgba(251, 146, 60, 0.7);
+  background: radial-gradient(circle, transparent 50%, rgba(251, 146, 60, 0.2) 100%);
+  animation: pulse-border-orange 1.5s infinite;
+}
+
+@keyframes pulse-border-orange {
+  0%  { border-color: rgba(251, 146, 60, 0.3); }
+  50% { border-color: rgba(251, 146, 60, 0.9); background: radial-gradient(circle, transparent 40%, rgba(251, 146, 60, 0.3) 100%); }
+  100%{ border-color: rgba(251, 146, 60, 0.3); }
+}
+
+.text-orange-400 { color: #fb923c; }
+.drop-shadow-orange { filter: drop-shadow(0 0 18px rgba(251, 146, 60, 0.8)); }
+
+/* FEVER: Hot Red Thermometer Card */
+.overlay-fever-card {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border: 10px solid rgba(248, 113, 113, 0.7);
+  background: radial-gradient(circle, transparent 50%, rgba(248, 113, 113, 0.2) 100%);
+  animation: pulse-border-fever 1s infinite;
+}
+
+@keyframes pulse-border-fever {
+  0%  { border-color: rgba(248, 113, 113, 0.3); }
+  50% { border-color: rgba(248, 113, 113, 1); background: radial-gradient(circle, transparent 40%, rgba(248, 113, 113, 0.3) 100%); }
+  100%{ border-color: rgba(248, 113, 113, 0.3); }
+}
+
+/* HELLO: Welcome */
+.overlay-hello-card {
+  position: absolute;
+  top: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 30;
+}
+
+.hello-banner {
+  padding: 1rem 3rem;
+  border-radius: 100px;
+  background: rgba(20, 20, 25, 0.8);
+  border: 1px solid rgba(94, 234, 212, 0.3);
+  box-shadow: 0 10px 40px rgba(94, 234, 212, 0.2);
+  display: flex;
+  align-items: center;
+}
+
+/* Center Placements */
+.absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Heartbeat */
+.animate-heartbeat {
+  animation: heartbeat 1.2s infinite;
+}
+
+@keyframes heartbeat {
+  0% { transform: scale(1); }
+  15% { transform: scale(1.3); }
+  30% { transform: scale(1); }
+  45% { transform: scale(1.3); }
+  60% { transform: scale(1); }
+  100% { transform: scale(1); }
+}
+
+.drop-shadow-pink { filter: drop-shadow(0 0 30px rgba(250, 62, 137, 0.8)); }
+
+/* Radar Pulse */
+.radar-pulse {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pulse-ring {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border: 4px solid #00f0ff;
+  border-radius: 50%;
+  opacity: 0;
+  animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.delay-1 { animation-delay: 0.6s; }
+.delay-2 { animation-delay: 1.2s; }
+
+@keyframes ping {
+  0% { transform: scale(0.8); opacity: 0.8; }
+  100% { transform: scale(4); opacity: 0; }
+}
+
+/* Utilities used inline */
+.inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
+.border-8 { border-width: 8px; }
+.border-red-500\/50 { border-color: rgba(239, 68, 68, 0.5); }
+.animate-ping { animation: pingBorder 1.5s cubic-bezier(0, 0, 0.2, 1) infinite; }
+
+@keyframes pingBorder {
+  0% { transform: scale(0.98); opacity: 0.8; }
+  100% { transform: scale(1.05); opacity: 0; }
+}
+
+/* Generic Playback Overlay Card */
+.overlay-playback-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+}
+
+.playback-content {
+  padding: 2rem 4rem;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  background: rgba(10, 10, 15, 0.9);
+  border: 2px solid var(--accent-blue);
+  box-shadow: 0 0 50px rgba(0, 240, 255, 0.3);
+}
+
+.playback-emoji {
+  font-size: 6rem;
+  filter: drop-shadow(0 0 15px var(--accent-blue));
+}
+
+.playback-text {
+  font-size: 2.5rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  background: linear-gradient(90deg, #fff, var(--accent-blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.animate-pop-in {
+  animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes popIn {
+  0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+  100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
