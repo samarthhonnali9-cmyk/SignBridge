@@ -32,30 +32,54 @@ const DICTIONARIES = {
     "Yes": "Yes", "No": "No", "Stop": "Stop", "Hello": "Hello", "Help": "Help needed", "Goodbye": "Goodbye",
     "I Love You": "I Love You", "Water": "Need Water", "Attention": "Attention", "Thank You": "Thank You",
     "Pain": "I am in pain", "Fever": "I have a fever", "My": "My", "I": "I", "You": "You", "Name": "Name",
-    "Need": "Need", "S": "S", "A": "A", "R": "R", "M": "M"
+    "Need": "Need", 
+    "A": "A", "B": "B", "C": "C", "D": "D", "E": "E", "F": "F", "G": "G", "H": "H", "I": "I", "J": "J",
+    "K": "K", "L": "L", "M": "M", "N": "N", "O": "O", "P": "P", "Q": "Q", "R": "R", "S": "S", "T": "T",
+    "U": "U", "V": "V", "W": "W", "X": "X", "Y": "Y", "Z": "Z"
   },
   "hi-IN": {
-    "Yes": "हाँ", "No": "नहीं", "Stop": "रुको", "Hello": "नमस्ते", "Help": "मदದ चाहिए", "Goodbye": "अलविदा",
+    "Yes": "हाँ", "No": "नहीं", "Stop": "रुको", "Hello": "नमस्ते", "Help": "मदद चाहिए", "Goodbye": "अलविदा",
     "I Love You": "मैं तुमसे प्यार करता हूँ", "Water": "पानी चाहिए", "Attention": "ध्यान दें", "Thank You": "धन्यवाद",
     "Pain": "मुझे दर्द हो रहा है", "Fever": "मुझे बुखार है", "My": "मेरा", "I": "मैं", "You": "तुम", "Name": "नाम",
-    "Need": "ज़रूरत है", "S": "S", "A": "A", "R": "R", "M": "M"
+    "Need": "ज़रूरत है",
+    "A": "A", "B": "B", "C": "C", "D": "D", "E": "E", "F": "F", "G": "G", "H": "H", "I": "I", "J": "J",
+    "K": "K", "L": "L", "M": "M", "N": "N", "O": "O", "P": "P", "Q": "Q", "R": "R", "S": "S", "T": "T",
+    "U": "U", "V": "V", "W": "W", "X": "X", "Y": "Y", "Z": "Z"
   },
   "kn-IN": {
     "Yes": "ಹೌದು", "No": "ಇಲ್ಲ", "Stop": "ನಿಲ್ಲಿಸಿ", "Hello": "ನಮಸ್ಕಾರ", "Help": "ಸಹಾಯ ಬೇಕು", "Goodbye": "ವಿದಾಯ",
     "I Love You": "ನಾನು ನಿನ್ನನ್ನು ಪ್ರೀತಿಸುತ್ತೇನೆ", "Water": "ನೀರು ಬೇಕು", "Attention": "ಗಮನಿಸಿ", "Thank You": "ಧನ್ಯವಾದಗಳು",
     "Pain": "ನನಗೆ ನೋವಾಗುತ್ತಿದೆ", "Fever": "ನನಗೆ ಜ್ವರ ಇದೆ", "My": "ನನ್ನ", "I": "ನಾನು", "You": "ನೀವು", "Name": "ಹೆಸರು",
-    "Need": "ಬೇಕಾಗಿದೆ", "S": "S", "A": "A", "R": "R", "M": "M"
+    "Need": "ಬೇಕಾಗಿದೆ",
+    "A": "A", "B": "B", "C": "C", "D": "D", "E": "E", "F": "F", "G": "G", "H": "H", "I": "I", "J": "J",
+    "K": "K", "L": "L", "M": "M", "N": "N", "O": "O", "P": "P", "Q": "Q", "R": "R", "S": "S", "T": "T",
+    "U": "U", "V": "V", "W": "W", "X": "X", "Y": "Y", "Z": "Z"
   }
 };
 
 const VISUAL_ACTIONS = ["Stop", "Help", "I Love You", "Attention", "Water", "Thank You", "Hello", "Pain", "Fever"];
 
+// Helper for ASL Sprites
+const INDIVIDUAL_ASL = new Set(['a','b','c','d','e','f','g','h','i','j','m','p','r','s']);
+const ASL_SPRITE = {
+  'a':{c:0,r:0},'b':{c:1,r:0},'c':{c:2,r:0},'d':{c:3,r:0},
+  'e':{c:4,r:0},'f':{c:5,r:0},'g':{c:6,r:0},
+  'h':{c:0,r:1},'i':{c:1,r:1},'j':{c:2,r:1},'k':{c:3,r:1},
+  'l':{c:4,r:1},'m':{c:5,r:1},'n':{c:6,r:1},
+  'o':{c:0,r:2},'p':{c:1,r:2},'q':{c:2,r:2},'r':{c:3,r:2},
+  's':{c:4,r:2},'t':{c:5,r:2},
+  'u':{c:0,r:3},'v':{c:1,r:3},'w':{c:2,r:3},'x':{c:3,r:3},
+  'y':{c:4,r:3},'z':{c:5,r:3},
+};
+// Trained Letters array specifically aligned with the 3D WebCam algorithm
+const TRAINED_LETTERS = ['A', 'P', 'S', 'R', 'M', 'B'];
+
 const SIGN_DICTIONARY_EMOJIS = {
   "Yes": "👍", "No": "👎", "Stop": "✋", "Help": "🤝", "Hello": "👋", "Goodbye": "👋",
   "I Love You": "🤟", "Water": "🚰", "Attention": "✊", "Thank You": "🙏", "Pain": "🤕", "Fever": "🤒",
   "My": "✋", "I": "👆", "You": "👉", "Name": "📛", "Need": "🤲",
-  "S": "✊", "A": "✊", "M": "👊", "R": "🤞", "E": "👊", "B": "✋", "C": "🤏", "D": "☝️", "F": "👌",
-  "G": "👈", "H": "👈", "J": "🤙", "K": "🖖", "L": "🤟", "N": "👊", "O": "👌", "P": "👇",
+  "A": "👍", "S": "✊", "M": "🤟", "R": "🤞", "E": "🖐️", "B": "✋", "C": "🤏", "D": "☝️", "F": "👌",
+  "G": "👈", "H": "👈", "J": "🤙", "K": "🖖", "L": "🤙", "N": "👊", "O": "👌", "P": "☝️",
   "Q": "👇", "T": "👊", "U": "✌️", "V": "✌️", "W": "🖐️", "X": "☝️", "Y": "🤙", "Z": "☝️"
 };
 
@@ -74,6 +98,11 @@ export default function RecognitionPage() {
   const [recognitionMode, setRecognitionMode] = useState('grammar'); 
   const [isPlayingSign, setIsPlayingSign] = useState(false);
   const [playIndex, setPlayIndex] = useState(-1);
+
+  const [holdLetter, setHoldLetter] = useState(null);
+  const holdStartTimeRef = useRef(0);
+  const [holdProgress, setHoldProgress] = useState(0);
+  const [suggestions, setSuggestions] = useState([]);
 
   const [sentenceWords, setSentenceWords] = useState([]);
   const [punctuation, setPunctuation] = useState('.');
@@ -203,47 +232,77 @@ export default function RecognitionPage() {
     setDetectedText("Environment Ready.");
   };
 
-  const handleGestureDetect = useCallback((rawLabel, score) => {
-    let translated = rawLabel === "None" ? "None" : (GESTURE_MAP[rawLabel] || rawLabel);
-    const currentConfidence = Math.floor(score * 100);
+  const handleGestureDetect = useCallback((detectedGesture, score, topThree = []) => {
+    const gesture = detectedGesture;
+    setDetectedText(detectedGesture);
+    setConfidence(Math.round(score * 100));
+    setSuggestions(topThree.filter(g => g.category !== detectedGesture && g.score > 0.1).slice(0, 3));
+
+    if (!modelLoaded) setModelLoaded(true);
     
-    if (translated === "None" || currentConfidence < 65) {
-      if (translated === "None") {
-        setDetectedText("Monitoring...");
-        setConfidence(0);
-        if (actionTimeoutRef.current) clearTimeout(actionTimeoutRef.current);
-        actionTimeoutRef.current = setTimeout(() => setActiveAction(null), 1000);
+    if (recognitionMode === 'alphabet') {
+      // 1. Minimum confidence filter (70% for better sensitivity)
+      if (score < 0.7 || !detectedGesture || detectedGesture === 'None') {
+        setHoldLetter(null);
+        setHoldProgress(0);
+        return;
       }
-      return;
-    }
 
-    setDetectedText(translated);
-    setConfidence(currentConfidence);
+      const HOLD_DURATION = 3000; // 3-second hold as requested by Jury
 
-    if (translated !== prevTextRef.current) {
-      const dict = DICTIONARIES[language];
-      speakText(dict[translated] || translated, language);
-      prevTextRef.current = translated;
+      if (detectedGesture === holdLetter) {
+        if (holdProgress >= 100) return; // Prevent repeating indefinitely while held
 
-      if (VISUAL_ACTIONS.includes(translated)) {
-        setActiveAction(translated);
-        if (actionTimeoutRef.current) clearTimeout(actionTimeoutRef.current);
+        const elapsed = Date.now() - holdStartTimeRef.current;
+        const progress = Math.min((elapsed / HOLD_DURATION) * 100, 100);
+        setHoldProgress(progress);
+
+        if (progress >= 100) {
+          setSentenceWords(prev => [...prev, gesture]);
+          lastSentenceWordTimeRef.current = Date.now();
+          
+          const dict = DICTIONARIES[language];
+          speakText(dict[gesture] || gesture, language);
+          
+          // Intentionally NOT resetting holdLetter here to keep progress locked at 100%.
+          // This prevents the system from infinitely looping and repeating the text/voice,
+          // forcing the user to lower their hand before typing the next letter.
+        }
       } else {
-        setActiveAction(null);
+        setHoldLetter(gesture);
+        holdStartTimeRef.current = Date.now();
+        setHoldProgress(0);
       }
+    } else {
+      // Grammar mode (Optimized logic)
+      if (gesture !== prevTextRef.current) {
+        prevTextRef.current = gesture;
+        
+        if (!gesture || gesture === 'None') return;
 
-      const now = Date.now();
-      const isSameWord = lastSentenceWordRef.current === translated;
-      const timeSinceLast = now - lastSentenceWordTimeRef.current;
+        const dict = DICTIONARIES[language];
+        speakText(dict[gesture] || gesture, language);
 
-      if (!isSameWord || timeSinceLast > SENTENCE_COOLDOWN_MS) {
-        setSentenceWords(prev => [...prev, translated]);
-        lastSentenceWordRef.current = translated;
-        lastSentenceWordTimeRef.current = now;
+        if (VISUAL_ACTIONS.includes(gesture)) {
+          setActiveAction(gesture);
+          if (actionTimeoutRef.current) clearTimeout(actionTimeoutRef.current);
+          actionTimeoutRef.current = setTimeout(() => setActiveAction(null), 1000);
+        }
+
+        setSentenceWords(prev => [...prev, gesture]);
       }
-
-      setHistory(prev => [{ text: translated, confidence: currentConfidence, timestamp: Date.now() }, ...prev].slice(0, 50));
     }
+  }, [language, recognitionMode, holdLetter, modelLoaded, speakText]);
+
+  const handleBackspace = useCallback(() => {
+    setSentenceWords(prev => prev.slice(0, -1));
+  }, []);
+
+  const handleManualAdd = useCallback((item) => {
+    setSentenceWords(prev => [...prev, item]);
+    lastSentenceWordTimeRef.current = Date.now();
+    const dict = DICTIONARIES[language];
+    speakText(dict[item] || item, language);
   }, [language, speakText]);
 
   return (
@@ -253,9 +312,8 @@ export default function RecognitionPage() {
         
         {/* Main Feed View */}
         <div className="col-span-8 flex flex-col gap-6">
-          
-          <div className="relative rounded-3xl overflow-hidden glass-panel border-blue shadow-glow">
-             <div className="absolute top-4 left-4 z-10 flex gap-2">
+          <div className="recognition-engine relative rounded-3xl overflow-hidden glass-panel border-blue shadow-glow min-h-[500px]">
+            <div className="absolute top-4 left-4 z-10 flex gap-2">
                 <div className="px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-green-500/30 text-green-400 text-xs font-bold flex items-center gap-2">
                   <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
                   LIVE AI RECOGNITION
@@ -263,11 +321,102 @@ export default function RecognitionPage() {
                 <div className="px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/10 text-white/50 text-xs font-mono">
                   {standard} / {recognitionMode.toUpperCase()}
                 </div>
-             </div>
+            </div>
 
-             <WebcamView onGestureDetect={handleGestureDetect} onModelLoaded={handleModelLoaded} recognitionMode={recognitionMode}>
-                <ActionOverlays activeAction={activeAction} />
-             </WebcamView>
+            <WebcamView 
+              onGestureDetect={handleGestureDetect} 
+              onModelLoaded={handleModelLoaded}
+              recognitionMode={recognitionMode}
+            >
+              <ActionOverlays activeAction={activeAction} />
+            </WebcamView>
+            
+            {/* Hold Progress Overlay */}
+            {holdProgress > 0 && holdProgress < 100 && (
+              <div className="absolute inset-0 flex items-center justify-center bg-black/20 backdrop-blur-[2px] pointer-events-none transition-opacity">
+                <div className="flex flex-col items-center">
+                  <div className="w-24 h-24 rounded-full border-4 border-white/10 flex items-center justify-center relative">
+                    <svg className="w-24 h-24 absolute -rotate-90">
+                      <circle
+                        cx="48" cy="48" r="44"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                        fill="transparent"
+                        className="text-accent-blue"
+                        strokeDasharray={276}
+                        strokeDashoffset={276 - (276 * holdProgress) / 100}
+                      />
+                    </svg>
+                    <span className="text-3xl font-black">{holdLetter}</span>
+                  </div>
+                  <span className="mt-4 px-4 py-1 bg-accent-blue/20 text-accent-blue text-xs font-bold rounded-full uppercase tracking-widest animate-pulse">
+                    Hold Steady
+                  </span>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <div className="engine-status bg-card p-6 rounded-2xl flex flex-col gap-4 border-light shadow-glow">
+            {/* Two-Row Alphabet Reference Guide */}
+            {recognitionMode === 'alphabet' ? (
+              <div className="alphabet-master-guide bg-white/5 rounded-2xl p-4 border border-white/5 flex flex-col gap-3">
+                <div className="flex items-center justify-between px-2">
+                   <div className="flex flex-col">
+                     <span className="text-xs font-black uppercase tracking-widest text-accent-blue">Alphabet Master Guide (A-Z)</span>
+                     <span className="text-[11px] text-white/50 mt-1">Tap any letter or use the camera to type</span>
+                   </div>
+                   <span className="text-[10px] text-muted animate-pulse">Scroll Right ➡️</span>
+                </div>
+                
+                {/* Only Show the Actually Trained Algorithm Letters */}
+                <div className="flex gap-4 overflow-x-auto pb-4 pt-2 no-scrollbar scroll-smooth justify-center">
+                  {TRAINED_LETTERS.map((letter, i) => (
+                    <div key={i} onClick={() => handleManualAdd(letter)} className={`flex-shrink-0 flex flex-col items-center justify-between p-2 rounded-2xl border w-20 h-32 group transition-all cursor-pointer shadow-sm relative overflow-hidden bg-gradient-to-t from-accent-blue/10 to-transparent border-accent-blue/30 hover:border-accent-blue hover:scale-105 ${holdLetter === letter ? 'border-green-400 bg-green-500/20 shadow-glow' : ''}`}>
+                      {holdLetter === letter && <div className="absolute bottom-0 left-0 right-0 bg-green-500/30 transition-all duration-75 z-0" style={{ height: `${holdProgress}%` }} />}
+                      
+                      <div className="z-10 flex-grow flex items-center justify-center">
+                         <span className="text-4xl group-hover:animate-bounce origin-bottom drop-shadow-[0_0_8px_rgba(255,255,255,0.4)] transition-transform">
+                           {SIGN_DICTIONARY_EMOJIS[letter] || '🤚'}
+                         </span>
+                      </div>
+                      <span className="text-xl font-black bg-gradient-to-br from-[#00f0ff] to-[#8a2be2] text-transparent bg-clip-text mt-1 z-10">{letter}</span>
+                    </div>
+                  ))}
+                  
+                  {/* Action Keys */}
+                  <div className="border-l border-white/10 mx-1"></div>
+                  
+                  <div onClick={handleBackspace} className="flex-shrink-0 flex flex-col items-center justify-center bg-white/5 rounded-2xl border border-white/10 w-[4.5rem] h-32 group hover:border-red-500 hover:bg-red-500/10 transition-all cursor-pointer shadow-sm">
+                      <span className="text-sm font-black text-white/70 group-hover:text-red-400 transition-colors uppercase">Del</span>
+                  </div>
+                  <div onClick={() => handleManualAdd(" ")} className="flex-shrink-0 flex flex-col items-center justify-center bg-white/5 rounded-2xl border border-white/10 w-24 h-32 group hover:border-accent-blue hover:bg-accent-blue/10 transition-all cursor-pointer shadow-sm">
+                      <span className="text-sm font-black text-white/70 group-hover:text-accent-blue transition-colors uppercase">Space</span>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="flex items-center justify-between w-full">
+                <div className="mode-toggle-hint flex items-center gap-3 text-xs font-bold text-muted uppercase tracking-widest bg-white/5 px-4 py-2 rounded-xl">
+                  <Settings2 size={14} className="text-accent-blue" />
+                  Press [Enter] to Toggle Mode
+                </div>
+                <div className="h-12 w-px bg-white/5" />
+                <ConfidenceMeter value={confidence} />
+              </div>
+            )}
+
+            {/* Hold Steady Helper */}
+            {recognitionMode === 'alphabet' && (
+              <div className="flex items-center justify-between border-t border-white/5 pt-4">
+                <div className="flex items-center gap-3">
+                   <div className={`w-3 h-3 rounded-full ${detectedText === 'None' ? 'bg-red-500' : 'bg-accent-blue'} animate-pulse`} />
+                   <span className="text-sm font-bold tracking-tight">
+                     {detectedText === 'None' ? 'Gesture unclear - try again' : 'Hold gesture steady to confirm'}
+                   </span>
+                </div>
+              </div>
+            )}
           </div>
 
           <div className="sentence-builder-wrapper">
@@ -306,6 +455,24 @@ export default function RecognitionPage() {
                   <Download size={16} /> Export Transcript
                 </button>
                 <div className="p-3 bg-white/5 rounded-xl text-muted hover:text-white cursor-pointer"><Settings2 size={18} /></div>
+             </div>
+          </div>
+
+          {/* New Emergency SOS Card */}
+          <div className="glass-panel p-6 border-red-500/20 bg-red-500/5 animate-pulse-slow">
+             <div className="flex items-center gap-3 mb-4">
+                <Shield size={20} className="text-red-500" />
+                <h3 className="font-bold text-red-500">Critical Quick-Sign</h3>
+             </div>
+             <div className="grid grid-cols-2 gap-3">
+                <div className="p-3 bg-red-500/10 rounded-xl flex flex-col items-center">
+                   <span className="text-xs font-bold uppercase tracking-tight text-red-400">🤒 SICK</span>
+                   <span className="text-[10px] text-red-500/60 uppercase text-center">Double Thumbs Down</span>
+                </div>
+                <div className="p-3 bg-red-500/10 rounded-xl flex flex-col items-center">
+                   <span className="text-xs font-bold uppercase tracking-tight text-red-400">🤝 HELP</span>
+                   <span className="text-[10px] text-red-500/60 uppercase text-center">Double Fists</span>
+                </div>
              </div>
           </div>
 

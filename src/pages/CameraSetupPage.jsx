@@ -16,39 +16,10 @@ export default function CameraSetupPage() {
           SignBridge needs access to your webcam to detect and translate your sign language gestures locally in real-time. We prioritize your privacy—no video is recorded or sent to our servers.
         </p>
         
-        <ul className="text-left w-full mb-8 space-y-4">
-          <li className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded bg-purple-500/20 flex items-center justify-center text-purple-400">
-              <Hand size={18} />
-            </div>
-            <div>
-              <span className="font-semibold text-gray-200">Sentence Building Words</span>
-              <p className="text-sm text-gray-400 mt-1">
-                <span className="text-blue-400 font-bold">I</span>: Pointing Up near chest<br/>
-                <span className="text-blue-400 font-bold">You</span>: Pointing Up forward<br/>
-                <span className="text-blue-400 font-bold">My</span>: Open Palm near chest<br/>
-                <span className="text-blue-400 font-bold">Name</span>: Two Fingers (Victory) near chest<br/>
-                <span className="text-blue-400 font-bold">Need</span>: Two Thumbs Up
-              </p>
-            </div>
-          </li>
-          
-          <li className="flex items-center gap-3 mt-4">
-            <div className="w-8 h-8 rounded bg-green-500/20 flex items-center justify-center text-green-400">
-              <span className="font-bold">Aa</span>
-            </div>
-            <div>
-              <span className="font-semibold text-gray-200">Alphabet Mode (True ASL)</span>
-              <p className="text-sm text-gray-400 mt-1">
-                Toggle the switch at the top to <b>Alphabet Mode</b> and form the actual American Sign Language letters:
-                <br/><span className="text-green-400 font-bold">S</span> = Fist with thumb tightly wrapped across the front
-                <br/><span className="text-green-400 font-bold">A</span> = Fist with thumb pointing straight UP along the side
-                <br/><span className="text-green-400 font-bold">R</span> = Index and Middle fingers crossed (or just extended together)
-                <br/><span className="text-green-400 font-bold">M</span> = Fist with thumb tucked completely underneath
-              </p>
-            </div>
-          </li>
-        </ul>
+        {/* Gesture Guide Removed per request */}
+        <div className="setup-guidance-note mb-8 text-sm text-muted">
+          Your camera will only be used to detect hand landmarks. All data remains on your device.
+        </div>
         
         <div className="privacy-note flex items-center gap-2 mb-8">
           <ShieldAlert size={16} color="#10b981" />

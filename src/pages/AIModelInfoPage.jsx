@@ -74,19 +74,22 @@ export default function AIModelInfoPage() {
 
         <div className="glass-panel p-8 flex flex-col justify-center">
           <div className="flex items-center gap-3 mb-6">
-            <Share2 size={24} className="text-accent-purple" />
-            <h2 className="text-2xl font-bold">Scalable Deployment</h2>
+            <Cpu size={24} className="text-accent-blue" />
+            <h2 className="text-2xl font-bold">Data Integration Pipeline</h2>
           </div>
-          <p className="text-muted mb-8 leading-relaxed">
-            SignBridge is built as a modular micro-frontend, allowing it to be embedded as a simple JS widget into hospital portals, government help desks, or airport kiosks with minimal footprint.
-          </p>
-          <div className="flex gap-4">
-            <div className="stat-pill">
-              <Zap size={14} /> Edge Support
-            </div>
-            <div className="stat-pill">
-              <Globe size={14} /> WCAG 2.1 AAA
-            </div>
+          <div className="pipeline-flow space-y-4">
+             <div className="flow-step p-3 bg-white/5 rounded-xl border-l-4 border-accent-blue">
+                <span className="text-[10px] uppercase font-bold text-accent-blue">Step 01: Extract</span>
+                <p className="text-sm font-medium">Extract 3D Landmarks (21 points) from raw ISL/BSL video datasets.</p>
+             </div>
+             <div className="flow-step p-3 bg-white/5 rounded-xl border-l-4 border-accent-purple">
+                <span className="text-[10px] uppercase font-bold text-accent-purple">Step 02: Vectorize</span>
+                <p className="text-sm font-medium">Calculate joint angles & BFE Signatures (Binary Finger Encoding).</p>
+             </div>
+             <div className="flow-step p-3 bg-white/5 rounded-xl border-l-4 border-green-400">
+                <span className="text-[10px] uppercase font-bold text-green-400">Step 03: Inject</span>
+                <p className="text-sm font-medium">Inject unique signatures into the sub-millisecond JSON Heuristic Map.</p>
+             </div>
           </div>
         </div>
       </div>

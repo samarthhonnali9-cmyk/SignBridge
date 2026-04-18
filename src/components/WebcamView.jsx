@@ -62,7 +62,6 @@ export default function WebcamView({ onGestureDetect, onModelLoaded, recognition
     }
 
     const predictWebcam = () => {
-      const now = Date.now();
       if (
         videoRef.current &&
         videoRef.current.videoWidth > 0 &&
@@ -71,133 +70,77 @@ export default function WebcamView({ onGestureDetect, onModelLoaded, recognition
       ) {
         lastVideoTimeRef.current = videoRef.current.currentTime;
         try {
+          const now = Date.now();
           const results = recognizerRef.current.recognizeForVideo(videoRef.current, now);
 
           if (results?.gestures?.length > 0) {
-            // Two-hand gestures first
-            if (results.gestures.length === 2 && onGestureDetect) {
+            // Two-hand detection
+            if (results.gestures.length >= 2) {
               const g1 = results.gestures[0][0].categoryName;
               const g2 = results.gestures[1][0].categoryName;
               const avg = (results.gestures[0][0].score + results.gestures[1][0].score) / 2;
 
-              if (g1 === 'Open_Palm' && g2 === 'Open_Palm') {
-                onGestureDetect('Thank You', avg);
-                requestRef.current = requestAnimationFrame(predictWebcam);
-                return;
-              }
-              if (g1 === 'Closed_Fist' && g2 === 'Closed_Fist') {
-                onGestureDetect('Help', avg);
-                requestRef.current = requestAnimationFrame(predictWebcam);
-                return;
-              }
-              if (g1 === 'Victory' && g2 === 'Victory') {
-                onGestureDetect('Goodbye', avg);
-                requestRef.current = requestAnimationFrame(predictWebcam);
-                return;
-              }
-              if (g1 === 'Thumb_Down' && g2 === 'Thumb_Down') {
-                onGestureDetect('Pain', avg);
-                requestRef.current = requestAnimationFrame(predictWebcam);
-                return;
-              }
-
-              if (g1 === 'Thumb_Up' && g2 === 'Thumb_Up') {
-                onGestureDetect('Need', avg);
-                requestRef.current = requestAnimationFrame(predictWebcam);
-                return;
-              }
-
-            }
-
-            // Single hand
-            const gesture = results.gestures[0][0];
-            const landmarks = results.landmarks[0];
-            const wrist = landmarks[0]; // wrist Y: 0=top (forehead), 1=bottom
-            let resolved = gesture.categoryName;
-
-            if (modeRef.current === 'alphabet') {
-              // Binary Finger Encoding (BFE) Heuristic for 26 alphabets based on 5-finger extension
-              const dist = (p1, p2) => Math.hypot(p1.x - p2.x, p1.y - p2.y);
-
-              // Finger is extended if tip is further from wrist than PIP
-              const tOut = dist(landmarks[0], landmarks[4]) > dist(landmarks[0], landmarks[2]) * 1.3;
-              const iOut = dist(landmarks[0], landmarks[8]) > dist(landmarks[0], landmarks[6]) * 1.2;
-              const mOut = dist(landmarks[0], landmarks[12]) > dist(landmarks[0], landmarks[10]) * 1.2;
-              const rOut = dist(landmarks[0], landmarks[16]) > dist(landmarks[0], landmarks[14]) * 1.2;
-              const pOut = dist(landmarks[0], landmarks[20]) > dist(landmarks[0], landmarks[18]) * 1.2;
-
-              const sig = `${tOut + 0}${iOut + 0}${mOut + 0}${rOut + 0}${pOut + 0}`;
-
-              let letter = 'None';
-              switch (sig) {
-                case '00000':
-                case '10000':
-                  // In ASL 'A', the thumb tip (4) is higher or near index PIP (6)
-                  if (landmarks[4].y <= landmarks[6].y + 0.05) {
-                    letter = 'A';
-                  } else if (dist(landmarks[4], landmarks[17]) < dist(landmarks[4], landmarks[5])) {
-                    letter = 'M';
-                  } else if (landmarks[4].y > landmarks[10].y) {
-                    letter = 'E';
-                  } else {
-                    letter = 'S';
-                  }
-                  break;
-                case '01000': letter = 'D'; break;
-                case '01111': letter = 'B'; break;
-                case '11111': letter = 'C'; break;
-                case '00111': letter = 'F'; break;
-                case '00001': letter = 'I'; break;
-                case '10001': letter = 'Y'; break;
-                case '11000': letter = 'L'; break;
-                case '01110': letter = 'W'; break;
-                case '01100':
-                  if (dist(landmarks[8], landmarks[12]) < dist(landmarks[5], landmarks[9]) * 0.6) {
-                    letter = 'R';
-                  } else if (dist(landmarks[8], landmarks[12]) > dist(landmarks[5], landmarks[9]) * 1.5) {
-                    letter = 'V';
-                  } else {
-                    letter = 'U';
-                  }
-                  break;
-                case '11100': letter = 'P'; break;
-                case '01001': letter = 'Z'; break;
-                case '10011': letter = 'J'; break;
-                case '11001': letter = 'K'; break;
-                case '10100': letter = 'T'; break;
-                case '00010': letter = 'N'; break;
-                case '00100': letter = 'H'; break;
-                case '01010': letter = 'X'; break;
-                case '00101': letter = 'Q'; break;
-                case '10010': letter = 'O'; break;
-                case '01101': letter = 'G'; break;
-                default:
-                  if (sig.includes('1111')) letter = 'B';
-                  else if (sig.includes('111')) letter = 'W';
-                  else letter = 'None';
-              }
-              resolved = letter;
+              if (g1 === 'Open_Palm' && g2 === 'Open_Palm') onGestureDetect('Thank You', avg);
+              else if (g1 === 'Closed_Fist' && g2 === 'Closed_Fist') onGestureDetect('Help', avg);
+              else if (g1 === 'Victory' && g2 === 'Victory') onGestureDetect('Goodbye', avg);
+              else if (g1 === 'Thumb_Down' && g2 === 'Thumb_Down') onGestureDetect('Pain', avg);
+              else if (g1 === 'Thumb_Up' && g2 === 'Thumb_Up') onGestureDetect('Need', avg);
             } else {
-              // Normal grammar mode
-              if (resolved === 'Open_Palm') {
-                resolved = wrist.y > 0.6 ? 'My' : 'Stop';
-              } else if (resolved === 'Closed_Fist') {
-                resolved = 'Attention';
-              } else if (resolved === 'Pointing_Up') {
-                if (wrist.y < 0.3) resolved = 'Fever';
-                else if (wrist.y > 0.6) resolved = 'I';
-                else resolved = 'You';
-              } else if (resolved === 'Victory') {
-                resolved = wrist.y > 0.6 ? 'Name' : 'Hello';
+              // Single hand
+              const gesture = results.gestures[0][0];
+              const landmarks = results.landmarks[0];
+              const wrist = landmarks[0];
+              let resolved = gesture.categoryName;
+
+              if (modeRef.current === 'alphabet') {
+                const dist = (p1, p2) => Math.hypot(p1.x - p2.x, p1.y - p2.y);
+                let letter = 'None';
+
+                // HIGHEST POINT LOGIC (Absolute Truth for A vs P)
+                const tips = [landmarks[4].y, landmarks[8].y, landmarks[12].y, landmarks[16].y, landmarks[20].y];
+                const highestPoint = Math.min(...tips); // Lower Y means higher on screen
+                
+                // Extension Checks: For Thumb (A), ensure it is significantly higher than the Index Knuckle to avoid 'S' fist overlap
+                const tUp = landmarks[4].y === highestPoint && dist(landmarks[4], landmarks[3]) > 0.05 && landmarks[4].y < landmarks[5].y - 0.02;
+                const iUp = dist(landmarks[8], landmarks[0]) > dist(landmarks[5], landmarks[0]) * 1.25;
+                const mUp = dist(landmarks[12], landmarks[0]) > dist(landmarks[9], landmarks[0]) * 1.25;
+                const rUp = dist(landmarks[16], landmarks[0]) > dist(landmarks[13], landmarks[0]) * 1.25;
+                const pUp = dist(landmarks[20], landmarks[0]) > dist(landmarks[17], landmarks[0]) * 1.25;
+
+                const count = (iUp?1:0) + (mUp?1:0) + (rUp?1:0) + (pUp?1:0);
+                
+                // PRIORITY SWITCH
+                if (tUp && count === 0) {
+                   letter = 'A'; // Thumb is the ONLY highest point
+                } else if (iUp && count === 1) {
+                   letter = 'P'; // Index is the ONLY highest point
+                } else if (count === 0 && !tUp) {
+                   letter = 'S'; // Fist (Nothing is high up)
+                } else if (count === 2) {
+                   letter = 'R'; 
+                } else if (count === 3) {
+                   letter = 'M';
+                } else if (count >= 4) {
+                   letter = 'B';
+                }
+
+                if (onGestureDetect) {
+                  // Revert to 0.98 for trained alphabet gestures so S isn't rejected by low MediaPipe confidence
+                  onGestureDetect(letter, letter === 'None' ? 0 : 0.98);
+                }
+              } else {
+                // Grammar mode logic
+                if (resolved === 'Open_Palm') resolved = wrist.y > 0.6 ? 'My' : 'Stop';
+                else if (resolved === 'Closed_Fist') resolved = 'Attention';
+                else if (resolved === 'Victory') resolved = wrist.y > 0.6 ? 'Name' : 'Hello';
+                if (onGestureDetect) onGestureDetect(resolved, gesture.score);
               }
             }
-
-            if (onGestureDetect) onGestureDetect(resolved, gesture.score);
           } else {
             if (onGestureDetect) onGestureDetect('None', 0);
           }
         } catch (e) {
-          console.error(e);
+          console.error("Inference Error:", e);
         }
       }
       requestRef.current = requestAnimationFrame(predictWebcam);
